@@ -19,11 +19,4 @@ Nessun modello né API: [`src/lib/knowledge.ts`](src/lib/knowledge.ts) genera da
 
 ## Deploy sul VPS
 
-Stessa impostazione di Razor: il sito si aggancia alla rete `proxy` del Caddy condiviso in `/srv/proxy` e non pubblica porte.
-
-```bash
-cd /srv/portfolio
-docker compose up -d --build
-```
-
-Poi aggiungi il blocco di `Caddyfile.example` al Caddyfile condiviso e riavvia Caddy. Il dominio `gabrielemenghi.is-a.dev` punta al VPS con un record `A` in [is-a-dev/register](https://github.com/is-a-dev/register).
+Automatico a ogni push su `main`: GitHub Actions pubblica l'immagine su GHCR e il VPS la scarica, dietro il Caddy condiviso. Come funziona e come si prepara il server: [deploy/README.md](deploy/README.md).

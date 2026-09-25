@@ -1,0 +1,20 @@
+# Produzione sul VPS, in /srv/portfolio accanto al suo .env (una sola riga: TAG=...).
+# L'immagine arriva da GHCR, costruita in GitHub Actions. Nessuna porta pubblicata:
+# il Caddy condiviso (/srv/proxy) raggiunge il sito sulla rete "proxy" come portfolio:3000.
+#
+# Gli aggiornamenti li fa deploy.sh, lanciato dalla CI o a mano:
+#   sudo /srv/portfolio/deploy.sh SHA_DEL_COMMIT
+name: portfolio
+
+services:
+  web:
+    image: ghcr.io/gabrielemenghi/portfolio:${TAG:-latest}
+    restart: unless-stopped
+    mem_limit: 256m
+    networks:
+      proxy:
+        aliases: [portfolio]
+
+networks:
+  proxy:
+    external: true

@@ -1,0 +1,92 @@
+name: CI
+
+# Un push di sola documentazione non passa dalla CI e non fa deploy.
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md"]
+  pull_request:
+    paths-ignore: ["**.md"]
+
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+
+  immagine:
+    needs: verifica
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v7
+        with:
+          push: true
+          # Un solo manifest per versione: la pulizia conta le versioni su GHCR.
+          provenance: false
+          tags: |
+            ghcr.io/gabrielemenghi/portfolio:${{ github.sha }}
+            ghcr.io/gabrielemenghi/portfolio:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Il VPS scarica l'immagine appena pubblicata e riavvia il sito.
+  # La chiave SSH può lanciare solo /srv/portfolio/deploy.sh (deploy/README.md).
+  deploy:
+    needs: immagine
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy
+      cancel-in-progress: false
+    steps:
+      # Finché il VPS non è preparato (deploy/README.md) il deploy si salta, senza far fallire la CI.
+      - name: Segreti presenti
+        id: segreti
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          if [ -n "$DEPLOY_HOST" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::warning::Deploy non configurato: vedi deploy/README.md"; fi
+      # L'impronta del server è fissata nei segreti: un server diverso fa fallire la connessione.
+      - name: Chiave e impronta del server
+        if: steps.segreti.outputs.ok == 'true'
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - if: steps.segreti.outputs.ok == 'true'
+        run: ssh -i ~/.ssh/deploy -o StrictHostKeyChecking=yes "deploy@$DEPLOY_HOST" "$GITHUB_SHA"
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+
+  # Su GHCR restano le ultime 10 versioni, per tornare indietro; solo dopo un deploy riuscito.
+  pulizia:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/delete-package-versions@v5
+        with:
+          package-name: portfolio
+          package-type: container
+          min-versions-to-keep: 10
