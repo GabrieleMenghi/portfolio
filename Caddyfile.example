@@ -1,0 +1,6 @@
+# Da aggiungere al Caddyfile condiviso in /srv/proxy, poi:
+#   sudo docker compose restart caddy
+gabrielemenghi.is-a.dev {
+	encode zstd gzip
+	reverse_proxy portfolio:3000
+}
