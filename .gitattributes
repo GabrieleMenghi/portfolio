@@ -1,0 +1,8 @@
+# Fine riga LF ovunque: si sviluppa su Windows ma si esegue in container Linux.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
+*.pdf binary
