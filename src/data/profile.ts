@@ -78,9 +78,9 @@ export const projects: Project[] = [
       "Un curriculum in PDF non mostra come lavoro. Un chatbot su API a pagamento avrebbe costi che crescono con le visite, e un modello sul server ruberebbe memoria agli altri progetti del VPS.",
     solution:
       "Un sito con casi di studio, una modalità terminale e una chat che risponde sulle mie esperienze, pubblicato sul mio VPS con Docker in meno di 256 MB di memoria.",
-    ai: "Progettato e sviluppato insieme a Claude Code, dalla scelta dello stile al deploy. La chat usa un motore di ricerca leggero sui dati del profilo: nessun modello, nessuna API, nessuna risposta inventata.",
+    ai: "Progettato e sviluppato con Claude Code, dalla scelta dello stile al deploy. La chat invece gira tutta in locale: un algoritmo domande→risposte confronta la domanda con una raccolta di domande scritte a mano (TF-IDF su parole e frammenti di parole, con correzione dei refusi) e risponde solo con informazioni verificate. Nessun modello, nessuna API.",
     results: ["Zero costi per risposta", "Risposte basate solo su dati verificati"],
-    flow: ["Domanda", "API Next.js", "Motore locale", "Risposta"],
+    flow: ["Domanda", "Correzione refusi", "Confronto TF-IDF", "Risposta + suggerimenti"],
   },
 ];
 

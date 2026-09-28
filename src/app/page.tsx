@@ -54,7 +54,7 @@ export default function Home() {
             </p>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Chiedi a me</h2>
             <p className="max-w-md text-lg leading-relaxed text-muted">
-              Un assistente che conosce il mio percorso. Gira sul mio server, senza API a pagamento.
+              Domande e risposte sul mio percorso, scritte da me. Tutto gira in locale con un algoritmo domande→risposte: nessun modello AI, nessuna API.
             </p>
           </Reveal>
           <Reveal delay={100}>

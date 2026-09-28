@@ -71,9 +71,13 @@ export const intents: Intent[] = [
       "come funziona questa chat",
       "chi mi sta rispondendo",
       "usi un llm",
+      "come funziona il bot",
+      "come funzionano le risposte",
+      "che algoritmo usi",
+      "come scegli le risposte",
     ],
     answer:
-      "No, niente AI generativa: sono una raccolta di domande e risposte scritte da Gabriele, e un piccolo motore sceglie quella più vicina alla tua domanda. Così non invento mai nulla, e se non so qualcosa te lo dico.",
+      "Sono un bot, ma senza AI generativa: tutto gira in locale sul server, senza modelli né API esterne. Ho scritto una raccolta di domande e risposte, e un algoritmo confronta la tua domanda con i vari modi previsti di porre ciascuna: corregge i refusi, pesa parole e frammenti di parole (TF-IDF) e sceglie la risposta più vicina. Se la domanda parla di cose che non conosce, te lo dice invece di inventare.",
     next: ["sito", "ai", "contatti"],
   },
 
@@ -316,7 +320,7 @@ export const intents: Intent[] = [
       "che strumenti ai usi",
     ],
     answer:
-      "Uso gli agenti AI di coding, come Claude Code, per portare i progetti dall'idea alla produzione più in fretta. Le decisioni restano mie: scrivo un piano, documento ogni scelta e faccio verificare il lavoro da test automatici. Razor Gestionale e questo sito sono nati così.",
+      "Uso gli agenti AI di coding, come Claude Code, con un metodo preciso: prima pianifichiamo insieme requisiti e architettura, poi l'agente scrive il codice, poi si controlla, con la mia revisione e i test automatici. Razor Gestionale e questo sito sono nati così.",
     next: ["ai-codice", "razor-ai"],
   },
   {
@@ -325,6 +329,7 @@ export const intents: Intent[] = [
     questions: [
       "il codice lo scrivi tu o l'ai",
       "scrivi tu il codice",
+      "chi scrive il codice",
       "fa tutto l'ai",
       "vibe coding",
       "ti fidi dell'ai",
@@ -332,7 +337,7 @@ export const intents: Intent[] = [
       "controlli il codice generato",
     ],
     answer:
-      "Scrivo una parte del codice io e ne delego un'altra all'agente, ma la responsabilità è sempre mia: decido architettura e requisiti, leggo e rivedo quello che produce, e lo metto alla prova con test automatici. L'AI mi fa andare più veloce, non decide al posto mio.",
+      "Il codice lo scrive l'AI, supervisionata e organizzata da me. Prima pianifichiamo insieme: requisiti, architettura, decisioni. Poi, arrivati al punto, l'agente scrive il codice. Infine si controlla: rivedo quello che ha prodotto e lo verifico con test automatici. Cosa fare e come lo decido io.",
     next: ["razor-ai", "ai"],
   },
 
