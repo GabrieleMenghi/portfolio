@@ -89,8 +89,12 @@ export const experiences: Experience[] = [
     role: "Sviluppatore software",
     company: "2Digit S.r.l.",
     period: "apr 2026 — oggi",
-    summary: "San Marino. Sviluppo di gestionali web.",
-    highlights: ["Sviluppo di gestionali in PHP", "Uso di assistenti AI di coding a supporto dello sviluppo"],
+    summary: "San Marino. Sviluppo di gestionali e applicazioni web.",
+    highlights: [
+      "Sviluppo di gestionali in PHP",
+      "Progetti interamente in JavaScript: Node.js per il backend, Next.js per il frontend",
+      "Uso di assistenti AI di coding a supporto dello sviluppo",
+    ],
   },
   {
     role: "Sviluppatore software",
@@ -106,20 +110,31 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    role: "Laurea in Ingegneria e Scienze Informatiche",
-    company: "Università di Bologna, Cesena",
-    period: "2020 — 2023",
-    summary: "Laurea triennale, voto 102/110.",
-    highlights: [
-      "Esame di Stato per Ingegnere dell'Informazione (sez. B) superato",
-      "Diploma all'I.T.E.S. R. Valturio di Rimini con 100 e lode",
-    ],
+    role: "Esame di Stato",
+    company: "Ingegnere dell'Informazione, sezione B",
+    period: "",
+    summary: "Superato, in attesa del certificato.",
+    highlights: [],
+  },
+  {
+    role: "Laurea triennale in Ingegneria e Scienze Informatiche",
+    company: "Università di Bologna, campus di Cesena",
+    period: "set 2020 — ott 2023",
+    summary: "Voto di laurea 102/110.",
+    highlights: [],
+  },
+  {
+    role: "Diploma di scuola superiore",
+    company: "I.T.E.S. R. Valturio, Rimini",
+    period: "2015 — 2020",
+    summary: "Diplomato con 100 e lode.",
+    highlights: [],
   },
 ];
 
 export const skills: SkillGroup[] = [
   { name: "Linguaggi", items: ["C#", "TypeScript", "JavaScript", "PHP", "SQL", "HTML / CSS"] },
-  { name: "Framework", items: [".NET", "Angular", "Next.js", "React", "Tailwind CSS"] },
+  { name: "Framework", items: [".NET", "Node.js", "Angular", "Next.js", "React", "Tailwind CSS"] },
   { name: "Dati & DevOps", items: ["SQL Server", "MySQL", "PostgreSQL", "Docker", "Kubernetes", "Git", "CI/CD", "Swagger / OpenAPI"] },
   { name: "AI", items: ["Claude Code", "Sviluppo con agenti AI", "Revisione del codice generato"] },
 ];

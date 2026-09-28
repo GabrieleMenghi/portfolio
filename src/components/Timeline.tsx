@@ -24,7 +24,7 @@ export default function Timeline() {
                 aria-expanded={active}
                 className="group w-full text-left"
               >
-                <p className="font-mono text-xs text-muted">{e.period}</p>
+                {e.period && <p className="font-mono text-xs text-muted">{e.period}</p>}
                 <h3 className="mt-1 text-lg font-semibold transition-colors group-hover:text-accent">
                   {e.role} <span className="text-muted">· {e.company}</span>
                 </h3>
@@ -32,7 +32,7 @@ export default function Timeline() {
               </button>
               <div
                 className={`grid transition-all duration-500 ${
-                  active ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  active && e.highlights.length ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 }`}
               >
                 <ul className="overflow-hidden">

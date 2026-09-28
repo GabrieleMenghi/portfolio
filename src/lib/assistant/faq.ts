@@ -96,7 +96,7 @@ export const intents: Intent[] = [
       "che lavoro fai",
       "cosa fai nella vita",
     ],
-    answer: `Sono ${profile.name}, Software Engineer con 3 anni di esperienza tra backend (C#/.NET, PHP) e frontend (Angular, Next.js), laureato in Ingegneria e Scienze Informatiche all'Università di Bologna. Oggi lavoro a San Marino in 2Digit e porto progetti dall'idea alla produzione usando gli agenti AI di coding come acceleratore.`,
+    answer: `Sono ${profile.name}, Software Engineer con 3 anni di esperienza tra backend (C#/.NET, PHP, Node.js) e frontend (Angular, Next.js), laureato in Ingegneria e Scienze Informatiche all'Università di Bologna. Oggi lavoro a San Marino in 2Digit e porto progetti dall'idea alla produzione usando gli agenti AI di coding come acceleratore.`,
     next: ["esperienza", "progetti", "ai"],
   },
   {
@@ -190,7 +190,7 @@ export const intents: Intent[] = [
       "aziende",
     ],
     answer:
-      "Ho 3 anni di esperienza come sviluppatore:\n• 2Digit S.r.l., San Marino (da aprile 2026): gestionali in PHP, con assistenti AI di coding\n• Fortech S.r.l., Rimini (giugno 2023 – aprile 2026): backend C#/.NET, frontend Angular, microservizi con Docker e Kubernetes",
+      "Ho 3 anni di esperienza come sviluppatore:\n• 2Digit S.r.l., San Marino (da aprile 2026): gestionali in PHP e progetti interamente in JavaScript con Node.js e Next.js, con assistenti AI di coding\n• Fortech S.r.l., Rimini (giugno 2023 – aprile 2026): backend C#/.NET, frontend Angular, microservizi con Docker e Kubernetes",
     next: ["lavoro-attuale", "fortech", "progetti"],
   },
   {
@@ -206,7 +206,7 @@ export const intents: Intent[] = [
       "attualmente cosa fai",
     ],
     answer:
-      "Da aprile 2026 sono sviluppatore software in 2Digit S.r.l. a San Marino: sviluppo gestionali in PHP e uso gli assistenti AI di coding a supporto dello sviluppo.",
+      "Da aprile 2026 sono sviluppatore software in 2Digit S.r.l. a San Marino: sviluppo gestionali in PHP e progetti interamente in JavaScript, con Node.js per il backend e Next.js per il frontend. Uso gli assistenti AI di coding a supporto dello sviluppo.",
     next: ["ai", "fortech"],
   },
   {
@@ -267,15 +267,15 @@ export const intents: Intent[] = [
       "in cosa sei bravo",
     ],
     answer:
-      "Linguaggi: C#, TypeScript, JavaScript, PHP, SQL, HTML/CSS.\nFramework: .NET, Angular, Next.js, React, Tailwind CSS.\nDati e DevOps: SQL Server, MySQL, PostgreSQL, Docker, Kubernetes, Git, CI/CD, Swagger/OpenAPI.\nAI: sviluppo con agenti come Claude Code.",
+      "Linguaggi: C#, TypeScript, JavaScript, PHP, SQL, HTML/CSS.\nFramework: .NET, Node.js, Angular, Next.js, React, Tailwind CSS.\nDati e DevOps: SQL Server, MySQL, PostgreSQL, Docker, Kubernetes, Git, CI/CD, Swagger/OpenAPI.\nAI: sviluppo con agenti come Claude Code.",
     next: ["backend", "frontend", "devops"],
   },
   {
     id: "backend",
     label: "Che esperienza hai nel backend?",
-    questions: ["backend", "c#", ".net", "dotnet", "php", "api", "rest", "swagger", "openapi", "sviluppo lato server"],
+    questions: ["backend", "c#", ".net", "dotnet", "php", "node.js", "nodejs", "node", "javascript", "api", "rest", "swagger", "openapi", "sviluppo lato server"],
     answer:
-      "Il backend è dove ho lavorato di più: C#/.NET in Fortech, su microservizi con API documentate in Swagger/OpenAPI, e PHP per i gestionali in 2Digit. In Razor Gestionale ho scritto il backend in TypeScript con Next.js, PostgreSQL e Drizzle.",
+      "Il backend è dove ho lavorato di più: C#/.NET in Fortech, su microservizi con API documentate in Swagger/OpenAPI, e in 2Digit PHP per i gestionali e Node.js per i progetti interamente in JavaScript. In Razor Gestionale ho scritto il backend in TypeScript con Next.js, PostgreSQL e Drizzle.",
     next: ["database", "fortech"],
   },
   {
@@ -283,7 +283,7 @@ export const intents: Intent[] = [
     label: "Che esperienza hai nel frontend?",
     questions: ["frontend", "angular", "react", "next.js", "nextjs", "interfacce", "css", "tailwind", "ui"],
     answer:
-      "In Fortech ho sviluppato il frontend con Angular. Nei miei progetti uso React e Next.js con Tailwind CSS: Razor Gestionale ha un sito pubblico e un'app installabile per staff e clienti, e questo sito è fatto allo stesso modo.",
+      "In Fortech ho sviluppato il frontend con Angular, in 2Digit uso Next.js nei progetti interamente in JavaScript. Anche nei miei progetti uso React e Next.js con Tailwind CSS: Razor Gestionale ha un sito pubblico e un'app installabile per staff e clienti, e questo sito è fatto allo stesso modo.",
     next: ["razor", "sito"],
   },
   {
