@@ -1,19 +1,22 @@
+export type Answer = { answer: string; suggestions: string[] };
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** Invia una domanda a /api/ask e restituisce la risposta a pezzi, con un effetto di scrittura. */
-export async function* ask(question: string): AsyncGenerator<string> {
+/** Invia una domanda a /api/ask. */
+export async function ask(question: string): Promise<Answer> {
   const res = await fetch("/api/ask", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ question }),
   });
-
-  const text = (await res.text()) || "Qualcosa è andato storto, riprova tra poco.";
   if (!res.ok) {
-    yield text;
-    return;
+    return { answer: (await res.text()) || "Qualcosa è andato storto, riprova tra poco.", suggestions: [] };
   }
+  return res.json();
+}
 
+/** Restituisce il testo a pezzi, per l'effetto di scrittura. */
+export async function* typewriter(text: string): AsyncGenerator<string> {
   for (let i = 0; i < text.length; i += 3) {
     yield text.slice(i, i + 3);
     await sleep(12);

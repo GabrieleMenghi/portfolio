@@ -1,6 +1,6 @@
-import { localAnswer } from "@/lib/knowledge";
+import { reply } from "@/lib/assistant/match";
 
-// Risponde con il motore locale: niente modelli né API esterne.
+// Risponde con le domande e risposte di src/lib/assistant: niente modelli né API esterne.
 const MAX_QUESTION = 300;
 
 // Rate limit in memoria: sufficiente per un singolo server.
@@ -33,7 +33,6 @@ export async function POST(request: Request) {
   const question = typeof body.question === "string" ? body.question.trim().slice(0, MAX_QUESTION) : "";
   if (!question) return new Response("Domanda vuota.", { status: 400 });
 
-  return new Response(localAnswer(question), {
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
-  });
+  const { answer, suggestions } = reply(question);
+  return Response.json({ answer, suggestions });
 }

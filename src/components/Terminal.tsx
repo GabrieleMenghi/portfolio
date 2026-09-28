@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { contacts, experiences, profile, projects, skills } from "@/data/profile";
-import { ask } from "@/lib/ask";
+import { ask, typewriter } from "@/lib/ask";
 import { OPEN_TERMINAL } from "./events";
 
 type Line = { id: number; content: ReactNode };
@@ -231,13 +231,25 @@ export default function Terminal() {
       const id = push(<p className="text-zinc-500">…</p>);
       let text = "";
       try {
-        for await (const chunk of ask(arg)) {
+        const { answer, suggestions } = await ask(arg);
+        for await (const chunk of typewriter(answer)) {
           text += chunk;
           const current = text;
           setLines((l) =>
             l.map((x) =>
               x.id === id ? { id, content: <p className="whitespace-pre-line text-zinc-300">{current}</p> } : x,
             ),
+          );
+        }
+        if (suggestions.length) {
+          push(
+            <div className="text-zinc-500">
+              {suggestions.map((s) => (
+                <p key={s}>
+                  <span className="text-sky-400">ask</span> {s}
+                </p>
+              ))}
+            </div>,
           );
         }
       } finally {

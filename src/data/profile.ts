@@ -37,6 +37,8 @@ export const profile = {
   name: "Gabriele Menghi",
   role: "Software Engineer",
   location: "Rimini · San Marino",
+  /** Serve solo a calcolare l'età nella chat */
+  birthDate: "2001-06-08",
   headline: "Costruisco software completo, dal database al deploy, con l'AI come compagno di lavoro.",
   typedRoles: ["Software Engineer", "Full-stack Developer", ".NET · Angular · Next.js", "AI-assisted development"],
   about: [

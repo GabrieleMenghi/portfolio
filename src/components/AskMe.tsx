@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { ask } from "@/lib/ask";
-import { suggestions } from "@/lib/knowledge";
-import { profile } from "@/data/profile";
+import { ask, typewriter } from "@/lib/ask";
+import { intents, starters } from "@/lib/assistant/faq";
+
+const starterQuestions = starters.map((id) => intents.find((i) => i.id === id)?.label ?? "");
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -11,11 +12,12 @@ export default function AskMe() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: `Ciao! Sono l'assistente di ${profile.name.split(" ")[0]}. Chiedimi pure del suo lavoro, dei progetti o di come usa l'AI.`,
+      content: "Ciao! Sono Gabriele, o meglio la mia versione automatica. Chiedimi del mio lavoro, dei progetti o di come uso l'AI.",
     },
   ]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>(starterQuestions);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,10 +29,12 @@ export default function AskMe() {
     if (!q || busy) return;
     setInput("");
     setBusy(true);
+    setSuggestions([]);
     setMessages((m) => [...m, { role: "user", content: q }, { role: "assistant", content: "" }]);
 
     try {
-      for await (const chunk of ask(q)) {
+      const { answer, suggestions: next } = await ask(q);
+      for await (const chunk of typewriter(answer)) {
         setMessages((m) => {
           const copy = [...m];
           const last = copy[copy.length - 1];
@@ -38,6 +42,7 @@ export default function AskMe() {
           return copy;
         });
       }
+      setSuggestions(next);
     } catch {
       setMessages((m) => {
         const copy = [...m];
@@ -91,8 +96,8 @@ export default function AskMe() {
         ))}
       </div>
 
-      {messages.length <= 1 && (
-        <div className="flex flex-wrap gap-2 px-5 pb-3">
+      {!busy && suggestions.length > 0 && (
+        <div className="flex flex-wrap gap-2 px-5 pb-3" aria-label="Domande suggerite">
           {suggestions.map((s) => (
             <button
               key={s}
