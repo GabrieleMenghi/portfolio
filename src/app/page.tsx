@@ -74,6 +74,8 @@ export default function Home() {
                   <a
                     key={c.label}
                     href={c.href}
+                    data-umami-event="Contatto"
+                    data-umami-event-canale={c.label}
                     target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel="noreferrer"
                     className={`rounded-xl px-5 py-3 text-sm font-medium transition-transform hover:-translate-y-0.5 ${

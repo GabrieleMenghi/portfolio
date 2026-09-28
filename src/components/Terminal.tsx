@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { contacts, experiences, profile, projects, skills } from "@/data/profile";
 import { ask, typewriter } from "@/lib/ask";
+import { track } from "@/lib/track";
 import { OPEN_TERMINAL } from "./events";
 
 type Line = { id: number; content: ReactNode };
@@ -133,7 +134,14 @@ function run(cmd: string, arg: string): ReactNode {
           {contacts.map((c) => (
             <p key={c.label}>
               <span className="text-sky-400">{c.label.padEnd(10)}</span>{" "}
-              <a href={c.href} target="_blank" rel="noreferrer" className="text-zinc-100 underline">
+              <a
+                href={c.href}
+                target="_blank"
+                rel="noreferrer"
+                data-umami-event="Contatto"
+                data-umami-event-canale={c.label}
+                className="text-zinc-100 underline"
+              >
                 {c.value}
               </a>
             </p>
@@ -188,6 +196,7 @@ export default function Terminal() {
 
   useEffect(() => {
     if (!open) return;
+    track("Terminale");
     inputRef.current?.focus();
     document.body.style.overflow = "hidden";
     return () => {
@@ -231,7 +240,8 @@ export default function Terminal() {
       const id = push(<p className="text-zinc-500">…</p>);
       let text = "";
       try {
-        const { answer, suggestions } = await ask(arg);
+        const { answer, suggestions, intent } = await ask(arg);
+        track("Chat", intent ? { voce: intent, origine: "terminale" } : { voce: "non riconosciuta", domanda: arg.slice(0, 200), origine: "terminale" });
         for await (const chunk of typewriter(answer)) {
           text += chunk;
           const current = text;

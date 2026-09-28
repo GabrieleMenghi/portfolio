@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ask, typewriter } from "@/lib/ask";
 import { intents, starters } from "@/lib/assistant/faq";
+import { track } from "@/lib/track";
 
 const starterQuestions = starters.map((id) => intents.find((i) => i.id === id)?.label ?? "");
 
@@ -33,7 +34,9 @@ export default function AskMe() {
     setMessages((m) => [...m, { role: "user", content: q }, { role: "assistant", content: "" }]);
 
     try {
-      const { answer, suggestions: next } = await ask(q);
+      const { answer, suggestions: next, intent } = await ask(q);
+      // Le domande non riconosciute dicono quali risposte mancano.
+      track("Chat", intent ? { voce: intent } : { voce: "non riconosciuta", domanda: q.slice(0, 200) });
       for await (const chunk of typewriter(answer)) {
         setMessages((m) => {
           const copy = [...m];

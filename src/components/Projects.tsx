@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { projects, type Project } from "@/data/profile";
 import Reveal from "./Reveal";
 import SpotlightCard from "./SpotlightCard";
+import { track } from "@/lib/track";
 
 function Flow({ steps }: { steps: string[] }) {
   return (
@@ -128,7 +129,12 @@ export default function Projects() {
         {projects.map((p, i) => (
           <Reveal key={p.slug} delay={i * 100} className="h-full">
             <SpotlightCard className="h-full transition-transform duration-300 hover:-translate-y-1">
-              <button onClick={() => setSelected(p)} className="flex h-full w-full flex-col p-8 text-left">
+              <button
+                onClick={() => {
+                  setSelected(p);
+                  track("Caso di studio", { progetto: p.slug });
+                }}
+                className="flex h-full w-full flex-col p-8 text-left">
                 <span className="font-mono text-xs text-muted">0{i + 1}</span>
                 <h3 className="mt-3 text-2xl font-semibold">{p.title}</h3>
                 <p className="mt-2 flex-1 leading-relaxed text-muted">{p.tagline}</p>

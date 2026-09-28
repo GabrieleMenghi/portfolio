@@ -69,12 +69,16 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap gap-3">
           <a
             href="#chiedi"
+            data-umami-event="Hero"
+            data-umami-event-azione="chiedi a me"
             className="rounded-xl bg-accent px-6 py-3.5 font-semibold text-on-accent transition-transform hover:-translate-y-0.5"
           >
             Chiedi a me
           </a>
           <a
             href="#progetti"
+            data-umami-event="Hero"
+            data-umami-event-azione="progetti"
             className="rounded-xl border border-line bg-bg/60 px-6 py-3.5 font-medium backdrop-blur transition-colors hover:border-accent"
           >
             Guarda i progetti

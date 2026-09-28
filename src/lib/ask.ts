@@ -1,4 +1,4 @@
-export type Answer = { answer: string; suggestions: string[] };
+export type Answer = { answer: string; suggestions: string[]; intent: string | null };
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -10,7 +10,7 @@ export async function ask(question: string): Promise<Answer> {
     body: JSON.stringify({ question }),
   });
   if (!res.ok) {
-    return { answer: (await res.text()) || "Qualcosa è andato storto, riprova tra poco.", suggestions: [] };
+    return { answer: (await res.text()) || "Qualcosa è andato storto, riprova tra poco.", suggestions: [], intent: null };
   }
   return res.json();
 }

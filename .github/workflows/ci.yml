@@ -40,6 +40,9 @@ jobs:
       - uses: docker/build-push-action@v7
         with:
           push: true
+          build-args: |
+            NEXT_PUBLIC_UMAMI_URL=${{ vars.UMAMI_URL }}
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ vars.UMAMI_WEBSITE_ID }}
           # Un solo manifest per versione: la pulizia conta le versioni su GHCR.
           provenance: false
           tags: |

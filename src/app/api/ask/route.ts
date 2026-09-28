@@ -33,6 +33,6 @@ export async function POST(request: Request) {
   const question = typeof body.question === "string" ? body.question.trim().slice(0, MAX_QUESTION) : "";
   if (!question) return new Response("Domanda vuota.", { status: 400 });
 
-  const { answer, suggestions } = reply(question);
-  return Response.json({ answer, suggestions });
+  const { answer, suggestions, intent } = reply(question);
+  return Response.json({ answer, suggestions, intent });
 }
