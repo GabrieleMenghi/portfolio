@@ -248,7 +248,7 @@ export const intents: Intent[] = [
     label: "Sei ingegnere?",
     questions: ["sei ingegnere", "esame di stato", "abilitazione", "albo degli ingegneri", "certificazioni", "icdl", "patente europea del computer"],
     answer:
-      "Ho superato l'Esame di Stato per Ingegnere dell'Informazione (sezione B) e ho la certificazione ICDL Full Standard.",
+      "Nel 2023 ho superato l'Esame di Stato per Ingegnere dell'Informazione (sezione B) e ho la certificazione ICDL Full Standard.",
     next: ["studi", "competenze"],
   },
 

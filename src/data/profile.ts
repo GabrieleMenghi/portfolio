@@ -112,7 +112,7 @@ export const experiences: Experience[] = [
   {
     role: "Esame di Stato",
     company: "Ingegnere dell'Informazione, sezione B",
-    period: "",
+    period: "2023",
     summary: "Superato, in attesa del certificato.",
     highlights: [],
   },
